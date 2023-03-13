@@ -1,11 +1,14 @@
 services:
   postgres:
     container_name: postgres
-    image: postgres:latest
+    image: postgres:alpine
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PW}
       - POSTGRES_DB=${POSTGRES_DB} #optional (specify default database instead of $POSTGRES_DB)
+      - PGDATA=/data/postgres
+    volumes:
+      - ${PWD}/data:/data/postgres
     ports:
       - "5432:5432"
     restart: always
@@ -19,3 +22,4 @@ services:
     ports:
       - "5050:80"
     restart: always
+    
